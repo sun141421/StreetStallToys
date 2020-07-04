@@ -16,22 +16,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@{Converters.convertColorToDrawable(bean.screenColor)}"
-        android:onClick="toggleActionView"
         tools:context=".DisplayActivity">
 
-        <TextView
-            android:id="@+id/tvDisplay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:text="@{bean.txt}"
-            android:textColor="@{bean.txtColor}"
-            android:textSize="50sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="信息展示" />
+        <HorizontalScrollView
+            android:id="@+id/hsv1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            >
+
+            <TextView
+                android:id="@+id/tvDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="toggleActionView"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@{bean.txt}"
+                android:textColor="@{bean.txtColor}"
+                android:textSize="50sp"
+                tools:text="信息展示" />
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/tvSpeedUp"

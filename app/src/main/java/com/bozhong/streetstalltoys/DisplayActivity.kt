@@ -1,6 +1,7 @@
 package com.bozhong.streetstalltoys
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -13,10 +14,19 @@ import com.bozhong.streetstalltoys.databinding.ActivityDisplayBinding
 import kotlinx.android.synthetic.main.activity_display.*
 
 class DisplayActivity : AppCompatActivity() {
-    private var actDuration = 5000L
+    private val initDuration = 3000L
+
+    private var actDuration = initDuration
     private val anim by lazy {
         val screenWidth = resources.displayMetrics.widthPixels.toFloat()
-        ObjectAnimator.ofFloat(tvDisplay, "translationX", -screenWidth, screenWidth).apply {
+        //按initDuration是滑过一个屏幕所需时间的速度来计算
+        actDuration = (initDuration * (screenWidth * 2 + tvDisplay.width) / screenWidth).toLong()
+        ObjectAnimator.ofFloat(
+            tvDisplay,
+            "translationX",
+            screenWidth,
+            -(screenWidth + tvDisplay.width)
+        ).apply {
             duration = actDuration
             repeatMode = ObjectAnimator.RESTART
             repeatCount = ObjectAnimator.INFINITE
@@ -36,15 +46,24 @@ class DisplayActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding =
             DataBindingUtil.setContentView<ActivityDisplayBinding>(this, R.layout.activity_display)
         binding.bean = intent.getSerializableExtra(KEY_TOY) as StallToy?
 
-        anim.start()
-    }
+        //post 以便tvDisplay的宽度是准确的
+        tvDisplay.post {
+            anim.start()
+        }
+        //TODO 禁止触摸滑动
 
+        //字体大小，全屏高度减去上下50sp
+        tvDisplay.textSize =
+            resources.displayMetrics.heightPixels / resources.displayMetrics.scaledDensity - 100
+
+    }
 
     fun toggleActionView(@Suppress("UNUSED_PARAMETER") view: View) {
         groupAction.visibility =
@@ -53,14 +72,16 @@ class DisplayActivity : AppCompatActivity() {
 
     fun doSpeedUp(@Suppress("UNUSED_PARAMETER") view: View) {
         anim.cancel()
-        actDuration -= 200
+        //加减速按1/10
+        actDuration -= actDuration / 10
         anim.duration = actDuration
         anim.start()
     }
 
     fun doSlowDown(@Suppress("UNUSED_PARAMETER") view: View) {
         anim.cancel()
-        actDuration += 200
+        //加减速按1/10
+        actDuration += actDuration / 10
         anim.duration = actDuration
         anim.start()
     }
