@@ -1,19 +1,28 @@
 package com.bozhong.streetstalltoys
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.animation.TranslateAnimation
+import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.bozhong.streetstalltoys.databinding.ActivityDisplayBinding
 import kotlinx.android.synthetic.main.activity_display.*
 
 class DisplayActivity : AppCompatActivity() {
-    private var actDuration = 5000L;
-
+    private var actDuration = 5000L
+    private val anim by lazy {
+        val screenWidth = resources.displayMetrics.widthPixels.toFloat()
+        ObjectAnimator.ofFloat(tvDisplay, "translationX", -screenWidth, screenWidth).apply {
+            duration = actDuration
+            repeatMode = ObjectAnimator.RESTART
+            repeatCount = ObjectAnimator.INFINITE
+            interpolator = LinearInterpolator()
+        }
+    }
 
     companion object {
         private const val KEY_TOY = "StallToy"
@@ -33,27 +42,9 @@ class DisplayActivity : AppCompatActivity() {
             DataBindingUtil.setContentView<ActivityDisplayBinding>(this, R.layout.activity_display)
         binding.bean = intent.getSerializableExtra(KEY_TOY) as StallToy?
 
-        startScroll()
+        anim.start()
     }
 
-    private fun startScroll() {
-        val anim = TranslateAnimation(
-            TranslateAnimation.RELATIVE_TO_PARENT,
-            1F,
-            TranslateAnimation.RELATIVE_TO_PARENT,
-            -1F,
-            TranslateAnimation.RELATIVE_TO_PARENT,
-            0F,
-            TranslateAnimation.RELATIVE_TO_PARENT,
-            0F
-        ).apply {
-            duration = actDuration
-            repeatMode = TranslateAnimation.RESTART
-            repeatCount = TranslateAnimation.INFINITE
-        }
-
-        tvDisplay.startAnimation(anim)
-    }
 
     fun toggleActionView(@Suppress("UNUSED_PARAMETER") view: View) {
         groupAction.visibility =
@@ -61,15 +52,17 @@ class DisplayActivity : AppCompatActivity() {
     }
 
     fun doSpeedUp(@Suppress("UNUSED_PARAMETER") view: View) {
-        tvDisplay.clearAnimation()
+        anim.cancel()
         actDuration -= 200
-        startScroll()
+        anim.duration = actDuration
+        anim.start()
     }
 
     fun doSlowDown(@Suppress("UNUSED_PARAMETER") view: View) {
-        tvDisplay.clearAnimation()
+        anim.cancel()
         actDuration += 200
-        startScroll()
+        anim.duration = actDuration
+        anim.start()
     }
 
     fun doExit(@Suppress("UNUSED_PARAMETER") view: View) {
