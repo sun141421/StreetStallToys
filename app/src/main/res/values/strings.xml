@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">StreetStallToys</string>
+    <string name="screen_color">屏幕颜色</string>
+    <string name="please_input_txt">请输入播放文字……</string>
+    <string name="txt_color">文字颜色</string>
+    <string name="screen_scroll">屏幕滚动</string>
+    <string name="start_play">开始播放</string>
+</resources>

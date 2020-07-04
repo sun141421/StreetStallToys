@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.databinding.adapters.Converters" />
+
+        <variable
+            name="bean"
+            type="com.bozhong.streetstalltoys.StallToy" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".MainActivity">
+
+        <EditText
+            android:id="@+id/etTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/please_input_txt"
+            android:inputType="text"
+            android:lines="3"
+            android:text="@{bean.txt}"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="Autofill,LabelFor" />
+
+        <Switch
+            android:id="@+id/swScreenScroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@{bean.screenScroll}"
+            android:text="@string/screen_scroll"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etTxt" />
+
+        <TextView
+            android:id="@+id/tvLabelScreenColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/screen_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/swScreenScroll" />
+
+        <View
+            android:id="@+id/vScreenColor"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="20dp"
+            android:background="@{Converters.convertColorToDrawable(bean.screenColor)}"
+            app:layout_constraintBottom_toBottomOf="@id/tvLabelScreenColor"
+            app:layout_constraintStart_toEndOf="@id/tvLabelScreenColor"
+            app:layout_constraintTop_toTopOf="@id/tvLabelScreenColor" />
+
+        <TextView
+            android:id="@+id/tvLabelTxtColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/txt_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelScreenColor" />
+
+        <View
+            android:id="@+id/vTxtColor"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="20dp"
+            android:background="@{Converters.convertColorToDrawable(bean.txtColor)}"
+            app:layout_constraintBottom_toBottomOf="@id/tvLabelTxtColor"
+            app:layout_constraintStart_toEndOf="@id/tvLabelTxtColor"
+            app:layout_constraintTop_toTopOf="@id/tvLabelTxtColor" />
+
+        <Button
+            android:id="@+id/btnStartPlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/start_play"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelTxtColor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
