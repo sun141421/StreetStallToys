@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.databinding.adapters.Converters" />
+
+        <variable
+            name="bean"
+            type="com.bozhong.streetstalltoys.StallToy" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{Converters.convertColorToDrawable(bean.screenColor)}"
+        android:onClick="toggleActionView"
+        tools:context=".DisplayActivity">
+
+        <TextView
+            android:id="@+id/tvDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@{bean.txt}"
+            android:textColor="@{bean.txtColor}"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="信息展示" />
+
+        <TextView
+            android:id="@+id/tvSpeedUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:onClick="doSpeedUp"
+            android:padding="10dp"
+            android:text="@string/speed_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvSlowDown"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSlowDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="doSlowDown"
+            android:padding="10dp"
+            android:text="@string/slow_down"
+            app:layout_constraintBottom_toBottomOf="@id/tvSpeedUp"
+            app:layout_constraintEnd_toStartOf="@id/tvExit"
+            app:layout_constraintStart_toEndOf="@id/tvSpeedUp" />
+
+        <TextView
+            android:id="@+id/tvExit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="doExit"
+            android:padding="10dp"
+            android:text="@string/exit"
+            app:layout_constraintBottom_toBottomOf="@id/tvSpeedUp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvSlowDown" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="tvExit,tvSlowDown,tvSpeedUp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

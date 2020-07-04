@@ -24,7 +24,7 @@
             android:hint="@string/please_input_txt"
             android:inputType="text"
             android:lines="3"
-            android:text="@{bean.txt}"
+            android:text="@={bean.txt}"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="Autofill,LabelFor" />
 
@@ -32,7 +32,7 @@
             android:id="@+id/swScreenScroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="@{bean.screenScroll}"
+            android:checked="@={bean.screenScroll}"
             android:text="@string/screen_scroll"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etTxt" />

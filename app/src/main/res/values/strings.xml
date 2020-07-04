@@ -5,4 +5,7 @@
     <string name="txt_color">文字颜色</string>
     <string name="screen_scroll">屏幕滚动</string>
     <string name="start_play">开始播放</string>
+    <string name="exit">退出</string>
+    <string name="slow_down">减慢</string>
+    <string name="speed_up">加快</string>
 </resources>
