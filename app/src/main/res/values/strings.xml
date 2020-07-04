@@ -8,4 +8,5 @@
     <string name="exit">退出</string>
     <string name="slow_down">减慢</string>
     <string name="speed_up">加快</string>
+    <string name="pick_color">选择颜色</string>
 </resources>

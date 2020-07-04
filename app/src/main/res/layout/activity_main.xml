@@ -57,6 +57,15 @@
             app:layout_constraintTop_toTopOf="@id/tvLabelScreenColor" />
 
         <TextView
+            android:id="@+id/tvPickScreenColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/pick_color"
+            app:layout_constraintStart_toEndOf="@id/vScreenColor"
+            app:layout_constraintTop_toTopOf="@id/tvLabelScreenColor" />
+
+        <TextView
             android:id="@+id/tvLabelTxtColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,6 +82,15 @@
             android:background="@{Converters.convertColorToDrawable(bean.txtColor)}"
             app:layout_constraintBottom_toBottomOf="@id/tvLabelTxtColor"
             app:layout_constraintStart_toEndOf="@id/tvLabelTxtColor"
+            app:layout_constraintTop_toTopOf="@id/tvLabelTxtColor" />
+
+        <TextView
+            android:id="@+id/tvPickTxtColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/pick_color"
+            app:layout_constraintStart_toEndOf="@id/vTxtColor"
             app:layout_constraintTop_toTopOf="@id/tvLabelTxtColor" />
 
         <Button
